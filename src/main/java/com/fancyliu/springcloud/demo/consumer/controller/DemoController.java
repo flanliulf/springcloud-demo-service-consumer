@@ -32,10 +32,11 @@ public class DemoController {
     private RestTemplate restTemplate;
 
     @GetMapping("/hello")
-    public String hello(String msg) {
+    public String hello(String name) {
+        String url = SERVICE_PROVIDER + "/demo/hello?name=" + name;
 
-        String result = "hello " + msg;
-        System.out.println(result);
+        log.info("start invoking provider hello method...");
+        String result = restTemplate.getForObject(url, String.class);
 
         return result;
     }
